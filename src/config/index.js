@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 // Set the NODE_ENV to 'development' by default
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -8,9 +8,9 @@ if (!envFound) {
     throw new Error("*  Couldn't find .env file  *");
 }
 
-export default {
+const serverConfig = {
     /* Your favorite port */
-    port: parseInt(process.env.PORT, 3000),
+    port: parseInt(process.env.PORT, 10),
 
     /* That long string from mlab */
     databaseURL: process.env.MONGODB_URI,
@@ -23,5 +23,5 @@ export default {
     api: {
         prefix: '/taxiapi'
     }
-
 }
+module.exports = serverConfig;

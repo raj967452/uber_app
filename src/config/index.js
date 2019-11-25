@@ -14,7 +14,10 @@ const serverConfig = {
 
     /* That long string from mlab */
     databaseURL: process.env.MONGODB_URI,
-
+    
+    /* Your secret sauce */
+    jwtSecret: process.env.jwtSecret,
+    
     /* Used by winston logger */
     logs: {
         level: process.env.LOG_LEVEL || 'silly',

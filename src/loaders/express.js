@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const routes = require('../api');
 const config = require('../config');
 
 const expressLoader = async ({ app }) => {
@@ -16,6 +16,9 @@ const expressLoader = async ({ app }) => {
    // Middleware that transforms the raw string of req.body into json
    app.use(bodyParser.json());
 
+   // Load API routes
+   app.use(config.api.prefix, routes());
+
    /// catch 404 and forward to error handler
    app.use((req, res, next) => {
       const err = new Error('Not Found');
@@ -24,6 +27,17 @@ const expressLoader = async ({ app }) => {
    });
 
    /// error handlers
+   app.use((err, req, res, next)=>{
+      /*Handle 401 thrown by express-jwt library */
+      if(err.name === 'UnauthorizedError'){
+         return res
+         .status(err.status)
+         .send({message: err.message})
+         .end();
+      }
+      return next(err);
+   });
+
    app.use((err, req, res, next) => {
       res.status(err.status || 500);
       res.json({

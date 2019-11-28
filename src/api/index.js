@@ -1,13 +1,13 @@
 'use strict';
 
 const router = require('express').Router();
-//const auth = require('./auth');
-const user = require('./route/user');
-const driver = require('./route/driver');
+const auth = require('./auth');
+const user = require('./routes/user');
+const driver = require('./routes/driver');
 
 const appRoute = () => {
     const app = router();
-
+    auth(app);
     user(app);
     driver(app);
 

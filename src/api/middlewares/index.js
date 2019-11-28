@@ -1,9 +1,7 @@
 const currentUser = require('./currentUser');
 const isAuth = require('./isAuth');
 
-const restApiInstance = {
+module.exports = {
     currentUser: currentUser,
     isAuth: isAuth
 };
-
-module.exports = restApiInstance;
